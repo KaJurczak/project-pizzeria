@@ -130,7 +130,7 @@
             console.log('activeProduct is:', activeProduct);
             console.log('thisProduct.element is:', thisProduct.element);
             /* remove class active for the active product */
-            thisProduct.element.classList.remove('active');
+            activeProduct.classList.remove('active');
 
           /* END: if the active product isn't the element of thisProduct */
           }
