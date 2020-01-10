@@ -165,8 +165,62 @@
       const thisProduct = this;
       console.log('thisProductis at processOrder is:', thisProduct);
 
+      /* Create object with selected form elements*/
       const formData = utils.serializeFormToObject(thisProduct.form);
-      console.log('formData:', formData);
+      console.log('formData is:', formData);
+
+      /* find product price */
+      let basePrice = thisProduct.data.price;
+      console.log('basePrice is:', basePrice);
+
+      /* find all params */
+      const allParams = thisProduct.data.params;
+      console.log('allParams is:', allParams);
+
+      /* OPEN LOOP: for each params elements */
+      for(let paramId in allParams){
+        console.log('paramId is:', paramId);
+
+        /* find object from allParams with key paramId */
+        const param = allParams[paramId];
+        console.log('param is:', param);
+
+        /* OPEN LOOP: for each param option */
+        for(let optionId in param.options){
+          console.log('optionId is:', optionId);
+
+          /* find object from param.options with key optionId */
+          const option = param.options[optionId];
+          console.log('option is:', option);
+
+          /* Create objectSelected which one:
+          -  object formData has property equal to the parameters key (paramID)
+          - and has options key (optionId) */
+          const objectSelected = formData.hasOwnProperty(paramId) && formData[paramId].indexOf(optionId) >-1; //hasOwnProperty zwraca true jeśłi obiekt posiada daną wartość. indexOf Zwraca pierwszy (najmniejszy) indeks elementu w tablicy równego podanej wartości lub -1, gdy nie znaleziono takiego elementu.
+          console.log('objectSelected is:', objectSelected);
+          console.log(!option.default);
+          console.log(!objectSelected);
+          /* if objectSelected is true and has not property 'default', increas price */
+          if(objectSelected && !option.default){
+            console.log('increase price');
+            console.log('basePrice is', basePrice);
+            console.log('option price is', option.price);
+            basePrice += option.price;
+            console.log('basePrice is', basePrice);
+          }
+          /* if objectSelected is not selected (false) and has property 'defoult' - decrease price */
+          else if(!objectSelected && option.default){
+            console.log('decrease price');
+            basePrice -= option.price;
+          }
+          //else {console.log('do noothing');}
+        /* CLOSE LOOP: for each params options */
+        }
+      /* CLOSE LOOP: for each params elements */
+      }
+      /* insert product price into thisProduct.priceElem*/
+      console.log('basePrice is', basePrice);
+      thisProduct.priceElem.innerHTML = basePrice;
     }
   }
 
