@@ -95,6 +95,7 @@
       thisProduct.formInputs = thisProduct.form.querySelectorAll(select.all.formInputs);
       thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
       thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
+      thisProduct.imageWrapper = thisProduct.element.querySelector(select.menuProduct.imageWrapper);
     }
 
     initAccordion (){
@@ -196,12 +197,12 @@
           /* Create objectSelected which one:
           -  object formData has property equal to the parameters key (paramID)
           - and has options key (optionId) */
-          const objectSelected = formData.hasOwnProperty(paramId) && formData[paramId].indexOf(optionId) >-1; //hasOwnProperty zwraca true jeśłi obiekt posiada daną wartość. indexOf Zwraca pierwszy (najmniejszy) indeks elementu w tablicy równego podanej wartości lub -1, gdy nie znaleziono takiego elementu.
-          console.log('objectSelected is:', objectSelected);
+          const optionSelected = formData.hasOwnProperty(paramId) && formData[paramId].indexOf(optionId) >-1; //hasOwnProperty zwraca true jeśłi obiekt posiada daną wartość. indexOf Zwraca pierwszy (najmniejszy) indeks elementu w tablicy równego podanej wartości lub -1, gdy nie znaleziono takiego elementu.
+          console.log('optionSelected is:', optionSelected);
           console.log(!option.default);
-          console.log(!objectSelected);
+          console.log(!optionSelected);
           /* if objectSelected is true and has not property 'default', increas price */
-          if(objectSelected && !option.default){
+          if(optionSelected && !option.default){
             console.log('increase price');
             console.log('basePrice is', basePrice);
             console.log('option price is', option.price);
@@ -209,12 +210,41 @@
             console.log('basePrice is', basePrice);
           }
           /* if objectSelected is not selected (false) and has property 'defoult' - decrease price */
-          else if(!objectSelected && option.default){
+          else if(!optionSelected && option.default){
             console.log('decrease price');
             basePrice -= option.price;
           }
-          //else {console.log('do noothing');}
-        /* CLOSE LOOP: for each params options */
+          else {
+            console.log('do noothing');}
+
+          /* IMAGES */
+          console.log(thisProduct.imageWrapper);
+          const allImages = thisProduct.imageWrapper.querySelectorAll('img,.paramId-.optionId');
+          console.log('allImages is:', allImages);
+
+          for(let image of allImages){
+            console.log('image is:', image);
+            //image.toggle(classNames.menuProduct.imageVisible);
+            //image.classList.remove(classNames.menuProduct.imageVisible);
+            //console.log('image with remove active is:', image);
+
+            /* if objectSelected is true, images for this option should get class from classNames.menuProduct.imageVisible*/
+            console.log(optionSelected);
+            if(optionSelected){
+              console.log('is it work?');
+              image.classList.add(classNames.menuProduct.imageVisible);
+              console.log('image with active is:', image);
+            }
+
+            /* else - images should loose classNames.menuProduct.imageVisible */
+            else {
+              console.log('whats wrong with you?');
+              image.classList.remove(classNames.menuProduct.imageVisible);
+              console.log('image withoght active is:', image);
+            }
+          }
+
+        /* CLOSE LOOP: for each param options */
         }
       /* CLOSE LOOP: for each params elements */
       }
