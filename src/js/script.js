@@ -197,7 +197,7 @@
           /* Create objectSelected which one:
           -  object formData has property equal to the parameters key (paramID)
           - and has options key (optionId) */
-          const optionSelected = formData.hasOwnProperty(paramId) && formData[paramId].indexOf(optionId) >-1; //hasOwnProperty zwraca true jeśłi obiekt posiada daną wartość. indexOf Zwraca pierwszy (najmniejszy) indeks elementu w tablicy równego podanej wartości lub -1, gdy nie znaleziono takiego elementu.
+          let optionSelected = formData.hasOwnProperty(paramId) && formData[paramId].indexOf(optionId) >-1; //hasOwnProperty zwraca true jeśłi obiekt posiada daną wartość. indexOf Zwraca pierwszy (najmniejszy) indeks elementu w tablicy równego podanej wartości lub -1, gdy nie znaleziono takiego elementu.
           console.log('optionSelected is:', optionSelected);
           console.log(!option.default);
           console.log(!optionSelected);
@@ -218,17 +218,18 @@
             console.log('do noothing');}
 
           /* IMAGES */
+
+          /* Create const allImages with all elements with selector 'img'+'.'+paramId+'-'+optionId */
           console.log(thisProduct.imageWrapper);
-          const allImages = thisProduct.imageWrapper.querySelectorAll('img,.paramId-.optionId');
+          console.log('img'+'.'+paramId+'-'+optionId);
+          const allImages = thisProduct.imageWrapper.querySelectorAll('img'+'.'+paramId+'-'+optionId);
           console.log('allImages is:', allImages);
 
+          /*START LOOP: for each element of allImages */
           for(let image of allImages){
             console.log('image is:', image);
-            //image.toggle(classNames.menuProduct.imageVisible);
-            //image.classList.remove(classNames.menuProduct.imageVisible);
-            //console.log('image with remove active is:', image);
 
-            /* if objectSelected is true, images for this option should get class from classNames.menuProduct.imageVisible*/
+            /* if optionSelected is true, images for this option should get class from classNames.menuProduct.imageVisible*/
             console.log(optionSelected);
             if(optionSelected){
               console.log('is it work?');
@@ -242,6 +243,8 @@
               image.classList.remove(classNames.menuProduct.imageVisible);
               console.log('image withoght active is:', image);
             }
+
+          /*CLOSE LOOP: for each element of allImages */
           }
 
         /* CLOSE LOOP: for each param options */
