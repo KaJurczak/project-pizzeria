@@ -221,16 +221,13 @@
 
           /* IMAGES */
 
-          /* Create const allImages with all elements with selector 'img'+'.'+paramId+'-'+optionId */
-          //console.log(thisProduct.imageWrapper);
-          //console.log('img'+'.'+paramId+'-'+optionId);
-          console.log('choose one img:', thisProduct.imageWrapper.querySelector('img'+'.'+paramId+'-'+optionId));
-          const allImages = thisProduct.imageWrapper.querySelector('img'+'.'+paramId+'-'+optionId);
-          console.log('allImages is:', allImages);
+          /* Create variable image with element with selector 'img'+'.'+paramId+'-'+optionId */
+          let image = thisProduct.imageWrapper.querySelector('img'+'.'+paramId+'-'+optionId); //before: const allImages = thisProduct.imageWrapper.querySelectorAll('img'+'.'+paramId+'-'+optionId);
+          console.log('image is:', image);
 
-          /*START LOOP: for each element of allImages */
-          for(let image of allImages){
-            //console.log('image is:', image);
+          /*START IF: for image */
+          if(image){
+            //for(let image of allImages){
 
             /* if optionSelected is true, images for this option should get class from classNames.menuProduct.imageVisible*/
             //console.log(optionSelected);
@@ -247,7 +244,7 @@
               //console.log('image withoght active is:', image);
             }
 
-          /*CLOSE LOOP: for each element of allImages */
+          /*CLOSE IF: for image  */
           }
 
         /* CLOSE LOOP: for each param options */
