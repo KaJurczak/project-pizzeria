@@ -224,8 +224,9 @@
           /* Create const allImages with all elements with selector 'img'+'.'+paramId+'-'+optionId */
           //console.log(thisProduct.imageWrapper);
           //console.log('img'+'.'+paramId+'-'+optionId);
-          const allImages = thisProduct.imageWrapper.querySelectorAll('img'+'.'+paramId+'-'+optionId);
-          //console.log('allImages is:', allImages);
+          console.log('choose one img:', thisProduct.imageWrapper.querySelector('img'+'.'+paramId+'-'+optionId));
+          const allImages = thisProduct.imageWrapper.querySelector('img'+'.'+paramId+'-'+optionId);
+          console.log('allImages is:', allImages);
 
           /*START LOOP: for each element of allImages */
           for(let image of allImages){
@@ -269,7 +270,7 @@
 
       thisProduct.amountWidget = new AmountWidget(thisProduct.amountWidgetElem);
 
-      thisProduct.amountWidgetElem.addEventListener('updated', thisProduct.processOrder());
+      thisProduct.amountWidgetElem.addEventListener('updated', function(){thisProduct.processOrder();});
       console.log('event updated was happened');
     }
 
@@ -280,6 +281,7 @@
       const thisWidget = this;
 
       thisWidget.getElements(element);
+      thisWidget.value = settings.amountWidget.defaultValue;
       thisWidget.setValue(thisWidget.input.value);
       thisWidget.initAction();
 
@@ -302,9 +304,10 @@
       const newValue = parseInt(value); //Przetwarza argument w postaci łańcucha znaków i zwraca liczbę całkowitą typu integer
 
       /* TODO: Add validation */
-
-      thisWidget.value = newValue;
-      thisWidget.announce();
+      if(thisWidget.value!==newValue && newValue >= settings.amountWidget.defaultMin && newValue <= settings.amountWidget.defaultMax){
+        thisWidget.value = newValue;
+        thisWidget.announce();
+      }
       thisWidget.input.value = thisWidget.value;
     }
 
