@@ -211,8 +211,8 @@
       thisProduct.params = {};
 
       /* find product price */
-      let basePrice = thisProduct.data.price;
-      //console.log('basePrice is:', basePrice);
+      let price = thisProduct.data.price;
+      //console.log('price is:', price);
 
       /* find all params */
       const allParams = thisProduct.data.params;
@@ -244,31 +244,30 @@
           /* if objectSelected is true and has not property 'default', increas price */
           if(optionSelected && !option.default){
             //console.log('increase price');
-            //console.log('basePrice is', basePrice);
+            //console.log('price is', price);
             //console.log('option price is', option.price);
-            basePrice += option.price;
-            //console.log('basePrice is', basePrice);
+            price += option.price;
+            //console.log('price is', price);
           }
           /* if objectSelected is not selected (false) and has property 'defoult' - decrease price */
           else if(!optionSelected && option.default){
             //console.log('decrease price');
-            basePrice -= option.price;
+            price -= option.price;
           }
           //else {
           //console.log('do noothing');}
 
           /* IMAGES */
           /* Create variable image with element with selector 'img'+'.'+paramId+'-'+optionId */
-          //let image = thisProduct.imageWrapper.querySelector('img'+'.'+paramId+'-'+optionId); //before: const allImages = thisProduct.imageWrapper.querySelectorAll('img'+'.'+paramId+'-'+optionId);
-
           const allImages = thisProduct.imageWrapper.querySelectorAll('img'+'.'+paramId+'-'+optionId);
-          //console.log('image is:', image);
-          console.log(allImages);
+          //console.log(allImages);
+
           for(let image of allImages){
-            console.log(image);
+            //console.log(image);
             image.classList.remove(classNames.menuProduct.imageVisible);
-            console.log(image);
+            //console.log(image);
           }
+
           /* if optionSelected is true*/
           //console.log(optionSelected);
           if(optionSelected){
@@ -284,7 +283,6 @@
             thisProduct.params[paramId].options[optionId] = option.label;
 
             /*START IF: for image */
-            //if(image){
             for(let image of allImages){
 
               /* images for this option should get class from classNames.menuProduct.imageVisible */
@@ -295,31 +293,20 @@
           /*CLOSE IF: for image  */
           }
 
-          /* else - images should loose classNames.menuProduct.imageVisible */
-          //else {
-          //console.log('whats wrong with you?');
-          //image.classList.remove(classNames.menuProduct.imageVisible);
-          //console.log('image withoght active is:', image);
-          //}
-
         /* CLOSE LOOP: for each param options */
         }
       /* CLOSE LOOP: for each params elements */
       }
 
       /* multiply price by amount */
-      thisProduct.priceSingle = basePrice;
+      thisProduct.priceSingle = price;
 
-      thisProduct.basePrice = thisProduct.priceSingle * thisProduct.amountWidget.value;
-
-      //before: basePrice *= thisProduct.amountWidget.value;
-
-      //console.log('thisProduct.amountWidget.value:', thisProduct.amountWidget.value);
-      //console.log('basePrice:', basePrice);
+      thisProduct.price = thisProduct.priceSingle * thisProduct.amountWidget.value;
+      //before: price *= thisProduct.amountWidget.value;
 
       /* insert product price into thisProduct.priceElem*/
-      //console.log('basePrice is', basePrice);
-      thisProduct.priceElem.innerHTML = thisProduct.basePrice;
+      //console.log('price is', price);
+      thisProduct.priceElem.innerHTML = thisProduct.price;
 
       console.log('thisProduct.params:', thisProduct.params);
     }
@@ -335,6 +322,9 @@
 
     addToCart(){
       const thisProduct = this;
+
+      thisProduct.name = thisProduct.data.name;
+      thisProduct.amount = thisProduct.amountWidget.value;
 
       app.cart.add(thisProduct);
     }
@@ -415,6 +405,7 @@
 
       thisCart.getElements(element);
       thisCart.initActions();
+      //thisCart.add();
 
       console.log('new Cart', thisCart);
     }
@@ -428,6 +419,8 @@
 
       thisCart.dom.toggleTrigger = thisCart.dom.wrapper.querySelector(select.cart.toggleTrigger);
       console.log('thisCart.dom.toggleTrigger:', thisCart.dom.toggleTrigger);
+
+      thisCart.dom.productList = thisCart.dom.wrapper.querySelector(select.cart.productList);
     }
 
     initActions(){
@@ -439,7 +432,23 @@
     }
 
     add(menuProduct){
-      // const thisCart = this;
+      const thisCart = this;
+      //const thisProduct = this;
+      console.log('thisCart at Cart.add is:', thisCart);
+      console.log('menuProduct', menuProduct);
+
+      /* generate HTML based on template */
+      const generatedHTML = templates.cartProduct(menuProduct);
+      console.log('generatedHTML:', generatedHTML);
+
+      /* create element using utils.createElementFromHTML */
+      const generatedDOM = utils.createDOMFromHTML(generatedHTML);
+      console.log('generatedDOM:', generatedDOM);
+
+      /*Add element to thisCart.dom.productList */
+      console.log('thisCart.dom.productList', thisCart.dom.productList);
+      thisCart.dom.productList.appendChild(generatedDOM); //wstawia określony węzeł na koniec listy dzieci określonego rodzica. Jeśli węzeł ma już rodzica, jest on najpierw od niego oddzielany.
+      console.log('thisCart.dom.productList', thisCart.dom.productList);
 
       console.log('adding product', menuProduct);
     }
