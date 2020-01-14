@@ -195,6 +195,7 @@
       thisProduct.cartButton.addEventListener('click', function(event){
         event.preventDefault();
         thisProduct.processOrder();
+        thisProduct.addToCart();
       });
     }
 
@@ -205,6 +206,9 @@
       /* Create object with selected form elements*/
       const formData = utils.serializeFormToObject(thisProduct.form);
       //console.log('formData is:', formData);
+
+      /* NEW, TO CART: create empty object */
+      thisProduct.params = {};
 
       /* find product price */
       let basePrice = thisProduct.data.price;
@@ -254,32 +258,49 @@
           //console.log('do noothing');}
 
           /* IMAGES */
-
           /* Create variable image with element with selector 'img'+'.'+paramId+'-'+optionId */
-          let image = thisProduct.imageWrapper.querySelector('img'+'.'+paramId+'-'+optionId); //before: const allImages = thisProduct.imageWrapper.querySelectorAll('img'+'.'+paramId+'-'+optionId);
+          //let image = thisProduct.imageWrapper.querySelector('img'+'.'+paramId+'-'+optionId); //before: const allImages = thisProduct.imageWrapper.querySelectorAll('img'+'.'+paramId+'-'+optionId);
+
+          const allImages = thisProduct.imageWrapper.querySelectorAll('img'+'.'+paramId+'-'+optionId);
           //console.log('image is:', image);
+          console.log(allImages);
+          for(let image of allImages){
+            console.log(image);
+            image.classList.remove(classNames.menuProduct.imageVisible);
+            console.log(image);
+          }
+          /* if optionSelected is true*/
+          //console.log(optionSelected);
+          if(optionSelected){
+            //console.log('is it work?');
 
-          /*START IF: for image */
-          if(image){
-            //for(let image of allImages){
+            /* NEW, TO CART */
+            if(!thisProduct.params[paramId]){
+              thisProduct.params[paramId] = {
+                label: param.label,
+                options: {},
+              };
+            }
+            thisProduct.params[paramId].options[optionId] = option.label;
 
-            /* if optionSelected is true, images for this option should get class from classNames.menuProduct.imageVisible*/
-            //console.log(optionSelected);
-            if(optionSelected){
-              //console.log('is it work?');
+            /*START IF: for image */
+            //if(image){
+            for(let image of allImages){
+
+              /* images for this option should get class from classNames.menuProduct.imageVisible */
               image.classList.add(classNames.menuProduct.imageVisible);
               //console.log('image with active is:', image);
             }
 
-            /* else - images should loose classNames.menuProduct.imageVisible */
-            else {
-              //console.log('whats wrong with you?');
-              image.classList.remove(classNames.menuProduct.imageVisible);
-              //console.log('image withoght active is:', image);
-            }
-
           /*CLOSE IF: for image  */
           }
+
+          /* else - images should loose classNames.menuProduct.imageVisible */
+          //else {
+          //console.log('whats wrong with you?');
+          //image.classList.remove(classNames.menuProduct.imageVisible);
+          //console.log('image withoght active is:', image);
+          //}
 
         /* CLOSE LOOP: for each param options */
         }
@@ -287,13 +308,20 @@
       }
 
       /* multiply price by amount */
-      basePrice *= thisProduct.amountWidget.value;
+      thisProduct.priceSingle = basePrice;
+
+      thisProduct.basePrice = thisProduct.priceSingle * thisProduct.amountWidget.value;
+
+      //before: basePrice *= thisProduct.amountWidget.value;
+
       //console.log('thisProduct.amountWidget.value:', thisProduct.amountWidget.value);
       //console.log('basePrice:', basePrice);
 
       /* insert product price into thisProduct.priceElem*/
       //console.log('basePrice is', basePrice);
-      thisProduct.priceElem.innerHTML = basePrice;
+      thisProduct.priceElem.innerHTML = thisProduct.basePrice;
+
+      console.log('thisProduct.params:', thisProduct.params);
     }
 
     initAmountWidget(){
@@ -303,6 +331,12 @@
 
       thisProduct.amountWidgetElem.addEventListener('updated', function(){thisProduct.processOrder();});
       //console.log('event updated was happened');
+    }
+
+    addToCart(){
+      const thisProduct = this;
+
+      app.cart.add(thisProduct);
     }
 
   }
@@ -403,6 +437,12 @@
         thisCart.dom.wrapper.classList.toggle(classNames.cart.wrapperActive);
       });
     }
+
+    add(menuProduct){
+      // const thisCart = this;
+
+      console.log('adding product', menuProduct);
+    }
   }
 
   const app = {
@@ -429,11 +469,11 @@
 
     init: function(){
       const thisApp = this;
-      console.log('*** App starting ***');
-      console.log('thisApp:', thisApp);
-      console.log('classNames:', classNames);
-      console.log('settings:', settings);
-      console.log('templates:', templates);
+      //console.log('*** App starting ***');
+      //console.log('thisApp:', thisApp);
+      //console.log('classNames:', classNames);
+      //console.log('settings:', settings);
+      //console.log('templates:', templates);
 
       thisApp.initData();
       thisApp.initMenu();
