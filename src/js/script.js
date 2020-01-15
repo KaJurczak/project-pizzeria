@@ -409,6 +409,7 @@
       thisCart.getElements(element);
       thisCart.initActions();
       //thisCart.add();
+      //thisCart.remove();
 
       //console.log('new Cart', thisCart);
     }
@@ -441,6 +442,9 @@
 
       thisCart.dom.productList.addEventListener('updated', function(){
         thisCart.update();
+      });
+      thisCart.dom.productList.addEventListener('remove', function(){
+        thisCart.remove(event.detail.cartProduct);
       });
     }
 
@@ -495,6 +499,19 @@
         }
       }
     }
+
+    remove(cartProduct){
+      const thisCart = this;
+
+      const index = thisCart.products.indexOf(cartProduct);
+      console.log('index', index);
+
+      thisCart.products.splice(index, 1); //usuwanie elementu z tablicy
+
+      cartProduct.dom.wrapper.remove();
+
+      thisCart.update();
+    }
   }
 
   class CartProduct{
@@ -510,6 +527,7 @@
 
       thisCartProduct.getElements(element);
       thisCartProduct.initAmountWidget();
+      thisCartProduct.initActions();
 
       //console.log('thisCartProduct', thisCartProduct);
     }
@@ -544,6 +562,33 @@
 
       });
 
+    }
+
+    remove(){
+      const thisCartProduct = this;
+
+      const event = new CustomEvent('remove', {
+        bubbles: true,
+        detail: {
+          cartProduct: thisCartProduct,
+        },
+      });
+      thisCartProduct.dom.wrapper.dispatchEvent(event); //Wywołuje zdarzenie w bieżącym elemencie.
+
+      console.log('method remove() has been called');
+    }
+
+    initActions(){
+      const thisCartProduct = this;
+
+      thisCartProduct.dom.edit.addEventListener('click', function(){
+        event.preventDefault();
+      });
+
+      thisCartProduct.dom.remove.addEventListener('click', function(){
+        event.preventDefault();
+        thisCartProduct.remove();
+      });
     }
   }
 
