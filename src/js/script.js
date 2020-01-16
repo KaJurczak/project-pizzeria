@@ -264,13 +264,12 @@
 
           /* IMAGES */
           /* Create variable image with element with selector 'img'+'.'+paramId+'-'+optionId */
-          const allImages = thisProduct.imageWrapper.querySelectorAll('img'+'.'+paramId+'-'+optionId);
-          //console.log(allImages);
+          const image = thisProduct.imageWrapper.querySelector('img'+'.'+paramId+'-'+optionId);
+          //console.log(image);
 
-          for(let image of allImages){
-            //console.log(image);
+          /* Remove class active from element which has got image */
+          if(image){
             image.classList.remove(classNames.menuProduct.imageVisible);
-            //console.log(image);
           }
 
           /* if optionSelected is true*/
@@ -288,11 +287,12 @@
             thisProduct.params[paramId].options[optionId] = option.label;
 
             /*START IF: for image */
-            for(let image of allImages){
+            if(image){
 
               /* images for this option should get class from classNames.menuProduct.imageVisible */
               image.classList.add(classNames.menuProduct.imageVisible);
-              //console.log('image with active is:', image);
+
+              console.log('image with active is:', image);
             }
 
           /*CLOSE IF: for image  */
