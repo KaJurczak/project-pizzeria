@@ -202,7 +202,7 @@ class Product {
             /* images for this option should get class from classNames.menuProduct.imageVisible */
             image.classList.add(classNames.menuProduct.imageVisible);
 
-            console.log('image with active is:', image);
+            //console.log('image with active is:', image);
           }
 
         /*CLOSE IF: for image  */
