@@ -1,70 +1,61 @@
 import {settings, select} from '../settings.js';
+import BaseWidget from './BaseWidget.js';
 
-class AmountWidget{
+class AmountWidget extends BaseWidget{ //to rozszerzenie klasy BaseWidget
   constructor(element){
+    super(element, settings.amountWidget.defaultValue); //wywołanie konstruktora klasy nadrzednej, konieczne przy dziedziczeniu
+
     const thisWidget = this;
 
     thisWidget.getElements(element);
-    thisWidget.value = settings.amountWidget.defaultValue;
-    thisWidget.setValue(thisWidget.input.value);
     thisWidget.initAction();
 
     //console.log('AmountWidget:', thisWidget);
     //console.log('constructor argument:', element);
   }
 
-  getElements(element){
+  getElements(){
     const thisWidget = this;
 
-    thisWidget.element = element;
-    thisWidget.input = thisWidget.element.querySelector(select.widgets.amount.input);
-    thisWidget.linkDecrease = thisWidget.element.querySelector(select.widgets.amount.linkDecrease);
-    thisWidget.linkIncrease = thisWidget.element.querySelector(select.widgets.amount.linkIncrease);
+    thisWidget.dom.input = thisWidget.dom.wrapper.querySelector(select.widgets.amount.input);
+    thisWidget.dom.linkDecrease = thisWidget.dom.wrapper.querySelector(select.widgets.amount.linkDecrease);
+    thisWidget.dom.linkIncrease = thisWidget.dom.wrapper.querySelector(select.widgets.amount.linkIncrease);
   }
 
-  setValue(value){
+  isValid(value){
+    return !isNaN(value) //sprawdza czy value jest liczbą
+      && value >= settings.amountWidget.defaultMin
+      && value <= settings.amountWidget.defaultMax;
+  }
+
+  renderValue(){
     const thisWidget = this;
 
-    const newValue = parseInt(value); //Przetwarza argument w postaci łańcucha znaków i zwraca liczbę całkowitą typu integer
-
-    /* TODO: Add validation */
-    if(thisWidget.value!==newValue && newValue >= settings.amountWidget.defaultMin && newValue <= settings.amountWidget.defaultMax){
-      thisWidget.value = newValue;
-      thisWidget.announce();
-    }
-    thisWidget.input.value = thisWidget.value;
+    thisWidget.dom.input.value = thisWidget.value;
   }
 
   initAction(){
     //console.log('initAction START');
     const thisWidget = this;
 
-    thisWidget.input.addEventListener('change', function(){
-      thisWidget.setValue(thisWidget.input.value);
+    thisWidget.dom.input.addEventListener('change', function(){
+      // thisWidget.setValue(thisWidget.dom.input.value);
+      thisWidget.value = thisWidget.dom.input.value;
       //console.log('event change was happened');
     });
 
-    thisWidget.linkDecrease.addEventListener('click', function(){
+    thisWidget.dom.linkDecrease.addEventListener('click', function(){
       event.preventDefault();
       thisWidget.setValue(thisWidget.value-1);
       //console.log('event click was happened - decreas price');
     });
 
 
-    thisWidget.linkIncrease.addEventListener('click', function(){
+    thisWidget.dom.linkIncrease.addEventListener('click', function(){
       event.preventDefault();
       thisWidget.setValue(thisWidget.value+1);
       //console.log('event click was happened - increas price');
     });
-  }
-
-  announce(){
-    const thisWidget = this;
-
-    const event = new CustomEvent('updated', {
-      bubbles: true
-    });
-    thisWidget.element.dispatchEvent(event); //Wywołuje zdarzenie w bieżącym elemencie.
   }
 }
 
