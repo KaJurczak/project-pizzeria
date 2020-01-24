@@ -1,4 +1,4 @@
-import {templates, select, settings} from '../settings.js';
+import {templates, select, settings, classNames} from '../settings.js';
 import AmountWidget from './AmountWidget.js';
 import DatePicker from './DatePicker.js';
 import HourPicker from './HourPicker.js';
@@ -74,17 +74,90 @@ class Booking{
 
     thisBooking.booked = {};
 
+    for(let item of bookings){
+      thisBooking.makeBooked(item.date, item.hour, item.duration, item.table);
+    }
+
     for(let item of eventsCurrent){
       thisBooking.makeBooked(item.date, item.hour, item.duration, item.table);
     }
+
+    const minDate = thisBooking.datePicker.minDate;
+    const maxDate = thisBooking.datePicker.maxDate;
+
+
+    for(let item of eventsRepeat){
+      if(item.repeat == 'daily'){
+        for(let loopDate = minDate; loopDate<= maxDate; loopDate = utils.addDays(loopDate, 1)){
+          thisBooking.makeBooked(utils.dateToStr(loopDate), item.hour, item.duration, item.table);
+        }
+      }
+    }
+    console.log('thisBooking.booked', thisBooking.booked);
+
+    thisBooking.updateDOM();
+    console.log('uruchomione updatedDom');
   }
 
   makeBooked(date, hour, duration, table){
     const thisBooking = this;
 
-    thisBooking.booked[date][hour].push(table);
+    if(typeof thisBooking.booked[date] == 'undefined'){
+      thisBooking.booked[date] = {};
+    }
+
+    const startHour = utils.hourToNumber(hour); //zmienia format z godziny na liczbę, np z 12:30 na 12.5
+
+    for(let hourBlock = startHour; hourBlock < startHour + duration; hourBlock += 0.5){ // pętla z iteratorem,
+      // console.log('loop', hourBlock);
+
+      if(typeof thisBooking.booked[date][hourBlock] == 'undefined'){
+        thisBooking.booked[date][hourBlock] = [];
+      }
+
+      thisBooking.booked[date][hourBlock].push(table);
+    }
+
   }
 
+  updateDOM(){
+    const thisBooking = this;
+
+    thisBooking.date = thisBooking.datePicker.value;
+    thisBooking.hour = utils.hourToNumber(thisBooking.hourPicker.value);
+
+    let allAvailable = false;
+
+    if(
+      typeof thisBooking.booked[thisBooking.date] == 'undefined'
+      ||
+      typeof thisBooking.booked[thisBooking.date][thisBooking.hour] == 'undefined'
+    ){
+      allAvailable = true;
+    }
+    console.log('thisBooking.dom.tables', thisBooking.dom.tables);
+    for(let table of thisBooking.dom.tables){
+      let tableId = table.getAttribute(settings.booking.tableIdAttribute); //nie używamy table.id bo identyfikatory stolików nie musza być htmlowymi atrybutami id
+      if(!isNaN(tableId)){ //sprawdzamy czy to liczba. Zmienna tableId będzie zawsze tekstem bo pobrana jest z atrybutu elementu DOM. Tu dostaniemy info że jest liczbą nawet jeśli to tylko ciąg znaków typu '3'
+        tableId = parseInt(tableId);
+        console.log('tableId', tableId);
+        console.log('thisBooking.booked', thisBooking.booked);
+      }
+
+      if(
+        !allAvailable
+        &&
+        thisBooking.booked[thisBooking.date][thisBooking.hour].includes(tableId) > -1 //includes sprawdza czy element tabled znajduje się w tablicy
+      ){
+        table.classList.add(classNames.booking.tableBooked);
+        console.log('add class booking');
+      } else {
+        table.classList.remove(classNames.booking.tableBooked);
+        console.log('removed class booking');
+      }
+      console.log('thisBooking.booked', thisBooking.booked);
+    }
+  }
 
   render(bookingWidget){
     const thisBooking = this;
@@ -100,6 +173,7 @@ class Booking{
     thisBooking.dom.hoursAmount = bookingWidget.querySelector(select.booking.hoursAmount);
     thisBooking.dom.datePicker = bookingWidget.querySelector(select.widgets.datePicker.wrapper);
     thisBooking.dom.hourPicker = bookingWidget.querySelector(select.widgets.hourPicker.wrapper);
+    thisBooking.dom.tables = bookingWidget.querySelectorAll(select.booking.tables);
   }
 
   initWidgets(){
@@ -112,6 +186,11 @@ class Booking{
     thisBooking.datePicker = new DatePicker(thisBooking.dom.datePicker);
 
     thisBooking.hourPicker = new HourPicker(thisBooking.dom.hourPicker);
+
+    thisBooking.dom.wrapper.addEventListener('updated', function(){
+      thisBooking.updateDOM();
+      console.log('updatedDom zostało uruchomione przez listener');
+    });
   }
 }
 
