@@ -29,18 +29,21 @@ class DatePicker extends BaseWidget{
       defaultDate: thisWidget.minDate,
       minDate: thisWidget.minDate,
       maxDate: thisWidget.maxDate,
-      'disable': [
+      disable: [
         function(date) {
           // return true to disable
           return (date.getDay() === 1);
         }
       ],
-      'locale': {
+      locale: {
         'firstDayOfWeek': 1 // start week on Monday
       },
-      onChange: function(dateStr){
-        thisWidget.value = dateStr;
-      },
+      onChange:
+        function(selectedData, dateStr){
+          thisWidget.value = dateStr;
+          // console.log('selectedData', selectedData);
+          // console.log('dateStr', dateStr);
+        },
     });
   }
 

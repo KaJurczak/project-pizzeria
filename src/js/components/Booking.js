@@ -147,7 +147,7 @@ class Booking{
       if(
         !allAvailable
         &&
-        thisBooking.booked[thisBooking.date][thisBooking.hour].includes(tableId) > -1 //includes sprawdza czy element tabled znajduje się w tablicy
+        thisBooking.booked[thisBooking.date][thisBooking.hour].includes(tableId)  //includes sprawdza czy element tableId znajduje się w tablicy
       ){
         table.classList.add(classNames.booking.tableBooked);
         console.log('add class booking');
@@ -169,11 +169,15 @@ class Booking{
 
     bookingWidget.innerHTML = generatedHTML;
 
-    thisBooking.dom.peopleAmount = bookingWidget.querySelector(select.booking.peopleAmount);
-    thisBooking.dom.hoursAmount = bookingWidget.querySelector(select.booking.hoursAmount);
-    thisBooking.dom.datePicker = bookingWidget.querySelector(select.widgets.datePicker.wrapper);
-    thisBooking.dom.hourPicker = bookingWidget.querySelector(select.widgets.hourPicker.wrapper);
-    thisBooking.dom.tables = bookingWidget.querySelectorAll(select.booking.tables);
+    thisBooking.dom.peopleAmount = thisBooking.dom.wrapper.querySelector(select.booking.peopleAmount);
+    thisBooking.dom.hoursAmount = thisBooking.dom.wrapper.querySelector(select.booking.hoursAmount);
+    thisBooking.dom.datePicker = thisBooking.dom.wrapper.querySelector(select.widgets.datePicker.wrapper);
+    thisBooking.dom.hourPicker = thisBooking.dom.wrapper.querySelector(select.widgets.hourPicker.wrapper);
+    thisBooking.dom.tables = thisBooking.dom.wrapper.querySelectorAll(select.booking.tables);
+    thisBooking.dom.table = thisBooking.dom.wrapper.querySelectorAll(settings.booking.tableIdAttribute);
+    console.log('thisBooking.dom.tables', thisBooking.dom.tables);
+    console.log('thisBooking.dom.wrapper', thisBooking.dom.wrapper);
+
   }
 
   initWidgets(){
@@ -191,6 +195,11 @@ class Booking{
       thisBooking.updateDOM();
       console.log('updatedDom zostało uruchomione przez listener');
     });
+
+    // thisBooking.dom.tables.addEventListener('click', function(){
+    //   thisBooking.updateDOM();
+    //   console.log('uruchomiony listener na elemencie dom.tables');
+    // });
   }
 }
 
