@@ -8,6 +8,7 @@
   <link href="https://fonts.googleapis.com/css?family=Lato:400,300i,700%7COswald:300,500,700&amp;subset=latin-ext" rel="stylesheet">
   <link href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"> <!--link do bootstrapa-->
   <link rel="stylesheet" href="vendor/range-slider.min.css">
   <link rel="stylesheet" href="css/style.css">
 </head>
@@ -17,52 +18,223 @@
     <div class="container">
       <div class="header__wrapper">
         <div class="logo">
-          <h1 class="logo__title"><span>Mamma</span>Mia!</h1>
+          <div class="main-nav">
+            <a class="logo-link" href="#info">
+              <h1 class="logo__title"><span>Mamma</span>Mia!</h1>
+            </a>
+          </div>
           <h2 class="logo__subtitle">the best homemade Italian food</h2>
+
         </div>
-        <div class="main-nav">
+        <!-- <div class="main-nav">
+          <a href="#info">Info</a>
           <a href="#order">Order</a>
           <a href="#booking">Booking</a>
-        </div>
-        <div id="cart" class="cart">
-          <div class="cart__summary">
-            <span class="cart__total-number">0</span>
-            <span class="cart__total-price">Total price: $<strong>0</strong></span>
-            <i class="fas fa-chevron-down"></i>
-            <i class="fas fa-shopping-cart cart__icon"></i>
-          </div>
-          <div class="cart__content">
-            <form class="cart__order">
-              <ul class="cart__order-summary no-spacing">
-              </ul>
-              <ul class="cart__order-price">
-                <li class="cart__order-subtotal">
-                  <span class="cart__order-price-name">Subtotal:</span>
-                  <span class="cart__order-price-sum">$<strong>0</strong></span>
-                </li>
-                <li class="cart__order-delivery">
-                  <span class="cart__order-price-name">Delivery:</span>
-                  <span class="cart__order-price-sum">$<strong>0</strong></span>
-                </li>
-                <li class="cart__order-total">
-                  <span class="cart__order-price-name"><strong>Total:</strong></span>
-                  <span class="cart__order-price-sum">$<strong>0</strong></span>
-                </li>
-              </ul>
-              <div class="cart__order-confirmation">
-                <input type="tel" name="phone" placeholder="Your phone">
-                <input type="text" name="address" placeholder="Your address">
-                <button type="submit" class="btn-secondary">Order</button>
-              </div>
-            </form>
-          </div>
-        </div>
+        </div> -->
+
       </div>
     </div>
   </header>
 
   <div id="pages">
+    <section id="info">
+      <div id="main-page" class="main-page">
+        <div class="container">
+          <div class="row subpage">
+            <div class="element col-md-6">
+                <div class="card mb-2">
+                  <img src="https://i.postimg.cc/qMJpMhwt/pizza-1.jpg" alt="foto">
+                  <div class="card-body position-absolute">
+                    <div class="main-nav">
+                      <a href="#order">ORDER ONLINE</a>
+                      <p> Delicious food delivered to Your door </p>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            <div class="element col-md-6">
+                <div class="card mb-2">
+                    <img src="https://i.postimg.cc/WzXLJ88d/pizza-2.jpg"  alt="foto">
+                    <div class="card-body position-absolute">
+                      <div class="main-nav">
+                        <a href="#booking">BOOK A TABLE</a>
+                        <p> Come and joy </p>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="element col-12">
+                <div class="card hours mb-1">
+                    <div class="card-body position-absolute">
+                      <h5> OPENING HOURS: </h5>
+                      <p> TUE-SUN, 12PM - 12AM</p>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="reviews" class="reviews">
+          <div class="container row">
+            <div class="image col-md-4">
+              <img src="https://i.postimg.cc/YCjkY5JM/pizza-3.jpg" alt="foto">
+            </div>
+            <div class="col-md-8">
+              <div id="carousel-text" class="carousel slide" data-ride="carousel">
+                <ol class="content carousel-indicators">
+                  <li data-target="#carousel-text" data-slide-to="0" class="active"></li>
+                  <li data-target="#carousel-text" data-slide-to="1"></li>
+                  <li data-target="#carousel-text" data-slide-to="2"></li>
+                </ol>
+                <div class="carousel-inner">
+                  <div class="carousel-item active">
+                    <!-- <img class="d-block w-100" src="..." alt="..."> -->
+                    <div class="carousel-caption d-none d-md-block"> <!-- d-none d-md-block -->
+                      <h4> TITLE! </h4>
+                      <p> Lorem ipsum Lorem ipsum  Lorem ipsum  Lorem ipsum  Lorem ipsum  Lorem ipsum  Lorem ipsum  </p>
+                      <p> Author </p>
+                    </div>
+                  </div>
+                  <div class="carousel-item">
+                    <img class="d-block w-100" src="..." alt="...">
+                    <div class="carousel-caption d-none d-md-block">
+                      <h4> TITLE 2! </h4>
+                      <p> Lorem ipsum Lorem ipsum  Lorem ipsum  Lorem ipsum  Lorem ipsum  Lorem ipsum  Lorem ipsum  </p>
+                      <p> Author </p>
+                    </div>
+                  </div>
+                  <div class="carousel-item">
+                    <img class="d-block w-100" src="..." alt="...">
+                    <div class="carousel-caption d-none d-md-block">
+                      <h4> TITLE 3! </h4>
+                      <p> Lorem ipsum Lorem ipsum  Lorem ipsum  Lorem ipsum  Lorem ipsum  Lorem ipsum  Lorem ipsum  </p>
+                      <p> Author </p>
+                    </div>
+                  </div>
+                </div>
+                <a class="carousel-control-prev" href="#carousel-text" role="button" data-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carousel-text" role="button" data-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Next</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="gallery" class="gallery">
+          <div class="row container">
+            <div class="gallery-elements col-md-4 col-12">
+              <div class="card mb-3">
+                  <img src="https://i.postimg.cc/htwnrCBx/pizza-4.jpg" alt="foto">
+                  <div class="card-body">
+                    <ul>
+                      <li><a href="#"><i class="fas fa-heart"></i>heart</a></li>
+                      <li><a href="#"><i class="fas fa-share-alt"></i>share</a></li>
+                    </ul>
+                  </div>
+              </div>
+            </div>
+            <div class="gallery-elements col-md-4 col-12">
+              <div class="card mb-3">
+                  <img src="https://i.postimg.cc/Ls1p0z9W/pizza-5.jpg" alt="foto">
+                  <div class="card-body">
+                    <ul>
+                      <li><a href="#"><i class="fas fa-heart"></i>heart</a></li>
+                      <li><a href="#"><i class="fas fa-share-alt"></i>share</a></li>
+                    </ul>
+                  </div>
+              </div>
+            </div>
+            <div class="gallery-elements col-md-4 col-12">
+              <div class="card mb-3">
+                  <img src="https://i.postimg.cc/rs82m316/pizza-6.jpg" alt="foto">
+                  <div class="card-body">
+                    <ul>
+                      <li><a href="#"><i class="fas fa-heart"></i>heart</a></li>
+                      <li><a href="#"><i class="fas fa-share-alt"></i>share</a></li>
+                    </ul>
+                  </div>
+              </div>
+            </div>
+            <div class="gallery-elements col-md-4 col-12">
+              <div class="card mb-3">
+                  <img src="https://i.postimg.cc/CLcSZhrc/pizza-7.jpg" alt="foto">
+                  <div class="card-body">
+                    <ul>
+                      <li><a href="#"><i class="fas fa-heart"></i>heart</a></li>
+                      <li><a href="#"><i class="fas fa-share-alt"></i>share</a></li>
+                    </ul>
+                  </div>
+              </div>
+            </div>
+            <div class="gallery-elements col-md-4 col-12">
+              <div class="card mb-3">
+                  <img src="https://i.postimg.cc/PxnjGPN5/pizza-8.jpg" alt="foto">
+                  <div class="card-body">
+                    <ul>
+                      <li><a href="#"><i class="fas fa-heart"></i>heart</a></li>
+                      <li><a href="#"><i class="fas fa-share-alt"></i>share</a></li>
+                    </ul>
+                  </div>
+              </div>
+            </div>
+            <div class="gallery-elements col-md-4 col-12">
+              <div class="card mb-3">
+                  <img src="https://i.postimg.cc/26dfCrBF/pizza-9.jpg" alt="foto">
+                  <div class="card-body">
+                    <ul>
+                      <li><a href="#"><i class="fas fa-heart"></i>heart</a></li>
+                      <li><a href="#"><i class="fas fa-share-alt"></i>share</a></li>
+                    </ul>
+                  </div>
+              </div>
+            </div>
+            <div class="links">
+              <a href="http://www.instagram.com/?hl=pl">View more on Instagram</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
     <section id="order">
+      <div id="cart" class="cart">
+        <div class="cart__summary">
+          <span class="cart__total-number">0</span>
+          <span class="cart__total-price">Total price: $<strong>0</strong></span>
+          <i class="fas fa-chevron-down"></i>
+          <i class="fas fa-shopping-cart cart__icon"></i>
+        </div>
+        <div class="cart__content">
+          <form class="cart__order">
+            <ul class="cart__order-summary no-spacing">
+            </ul>
+            <ul class="cart__order-price">
+              <li class="cart__order-subtotal">
+                <span class="cart__order-price-name">Subtotal:</span>
+                <span class="cart__order-price-sum">$<strong>0</strong></span>
+              </li>
+              <li class="cart__order-delivery">
+                <span class="cart__order-price-name">Delivery:</span>
+                <span class="cart__order-price-sum">$<strong>0</strong></span>
+              </li>
+              <li class="cart__order-total">
+                <span class="cart__order-price-name"><strong>Total:</strong></span>
+                <span class="cart__order-price-sum">$<strong>0</strong></span>
+              </li>
+            </ul>
+            <div class="cart__order-confirmation">
+              <input type="tel" name="phone" placeholder="Your phone">
+              <input type="text" name="address" placeholder="Your address">
+              <button type="submit" class="btn-secondary">Order</button>
+            </div>
+          </form>
+        </div>
+      </div>
       <div id="product-list" class="product-list container"></div>
     </section>
     <section id="booking">

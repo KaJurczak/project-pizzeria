@@ -1,0 +1,203 @@
+.main-page {
+  padding: 20px 0;
+  //margin: 0 200px;
+
+  .container {
+    padding: ($base-size * 4) ($base-size * 4);
+    background: $color-light;
+    // border-bottom: 1px solid lighten($color-dark, 70%);
+    // border-radius: $radius;
+  }
+}
+
+.subpage {
+  margin: 0 auto;
+
+  .element{
+    padding: 0 5px;
+  }
+
+  .card {
+    height: 100px;
+    justify-content: space-between;
+    align-items: center;
+    color: $color-light;
+  }
+
+  .card img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    overflow: hidden;
+  }
+
+  .hours {
+    background: red;
+  }
+}
+
+.subpage .main-nav, .logo .main-nav {
+  //position: absolute;
+  @include flex(row, flex-start, flex-start);
+
+  a {
+    @extend .h2;
+    color: $color-light;
+    text-decoration: none;
+    text-align: center;
+    padding: $base-size ($base-size * 2);
+
+    &.active {
+      background: lighten($color-dark, 75%);
+    }
+  }
+
+  p {
+    font-size: 0;
+  }
+
+  &:hover {
+    display: block;
+
+    a, p {
+      transition: $transition;
+      text-align: center;
+    }
+
+    p {
+      font-size: $base-size;
+    }
+  }
+}
+
+.logo .main-nav a{
+  padding: 0 0;
+
+  &.active {
+    background: $color-dark;
+  }
+}
+
+.reviews {
+  //justify-content: space-between;
+
+  .image, .content{
+    padding: 0 5px;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .carousel-item, .carousel-inner{
+    background: grey;
+    height: 200px;
+    padding: 20px;
+    //align-items: bottom;
+    text-align: center;
+  }
+
+  .carousel-caption{
+    color: black;
+  }
+
+  // .carousel-indicators{
+  //   background-color: grey;
+  // }
+
+  .carousel-indicators .active{
+    background-color: black;
+  }
+
+  .carousel-control-prev .carousel-control-next{
+    color: black;
+  }
+}
+
+.gallery-elements {
+  padding: 0 5px;
+
+  .card{
+    justify-content: center;
+    align-items: center;
+  }
+
+  img{
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    //overflow: hidden;
+    z-index: 1;
+  }
+
+  .card-body {
+    position: absolute;
+    font-size: 0;
+    opacity: 0;
+
+    li {
+      display: inline-block;
+      font-size: 0;
+      z-index: -1;
+
+      &:hover {
+        z-index: 2;
+      }
+    }
+
+    i {
+      font-size: 20px;
+      width: 50px;
+      height: 50px;
+      line-height: 70px;
+      color: $color-light;
+      transition: $transition;
+
+      &:hover {
+        color: $color-main;
+        font-size: 20px;
+      }
+    }
+  }
+}
+
+.gallery .links{
+  color: pink;
+}
+//
+// .gallery-elements button:hover {
+//     opacity: 1;
+//     font-weight: bold;
+// }
+//
+// .gallery-elements button:hover + img {
+//     opacity: 0.8;
+// }
+//
+// .page-footer .fonts {
+//   text-align: left;
+// }
+//
+// .page-footer li {
+//   font-size: 0;
+//   display: inline;
+//   padding: 5px;
+//   text-align: center;
+// }
+//
+// .page-footer .fonts i {
+//   font-size: 20px;
+//   background: $color-font-dark;
+//   width: 50px;
+//   height: 50px;
+//   line-height: 50px;
+//   color: $color-main;
+//   border-radius: 50%;
+//   transition: $transition;
+// }
+//
+// .page-footer .fonts i:hover {
+//   transform: scale(1.5);
+// }
