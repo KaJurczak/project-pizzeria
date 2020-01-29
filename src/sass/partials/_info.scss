@@ -60,6 +60,7 @@
 
   &:hover {
     display: block;
+    cursor: pointer;
 
     a, p {
       transition: $transition;
@@ -83,9 +84,9 @@
 /* reviews */
 
 .reviews {
-
   .image, .content {
-    padding: 0 5px;
+    padding-right: 5px;
+    padding-left: 5px;
   }
 
   img {
@@ -94,11 +95,13 @@
     object-fit: cover;
   }
 
-  .carousel-item, .carousel-inner {
-    //background: grey;
+  .carousel-inner {
     height: 200px;
-    padding-top: 30px;
-    //align-items: bottom;
+  }
+
+  .carousel-item {
+    height: 200px;
+    margin-top: 40px;
     text-align: center;
   }
 
@@ -122,10 +125,6 @@
   .carousel-indicators .active {
     background-color: $color-dark;
   }
-
-  // .carousel-control-prev .sr-only, .carousel-control-next .sr-only {
-  //   color: $color-dark;
-  // }
 }
 
 /* gallery */
@@ -133,32 +132,39 @@
 .gallery-elements {
   padding: 0 5px;
 
-  .card{
+  .card {
     justify-content: center;
     align-items: center;
   }
 
-  img{
+  img {
     width: 100%;
-    height: 150px;
+    height: 200px;
     object-fit: cover;
-    //overflow: hidden;
     z-index: 1;
+
+    &:hover {
+      background: $color-light;
+      opacity: 0.5;
+    }
   }
 
   .card-body {
     position: absolute;
-    font-size: 20px;
+    z-index: 2;
 
-    li {
-      display: inline-block;
-      font-size: 20px;
-      //z-index: -1;
+    ul {
+      font-size: 0;
       opacity: 0;
 
       &:hover {
-        //z-index: 9999;
         opacity: 1;
+        cursor: pointer;
+        transition: $transition;
+      }
+
+      li {
+        display: inline-block;
       }
     }
 
@@ -168,51 +174,12 @@
       height: 50px;
       line-height: 70px;
       color: $color-light;
-      transition: $transition;
 
       &:hover {
         color: $color-main;
-        font-size: 20px;
+        cursor: pointer;
+        transition: $transition;
       }
     }
   }
 }
-
-.gallery .links{
-  color: pink;
-}
-//
-// .gallery-elements button:hover {
-//     opacity: 1;
-//     font-weight: bold;
-// }
-//
-// .gallery-elements button:hover + img {
-//     opacity: 0.8;
-// }
-//
-// .page-footer .fonts {
-//   text-align: left;
-// }
-//
-// .page-footer li {
-//   font-size: 0;
-//   display: inline;
-//   padding: 5px;
-//   text-align: center;
-// }
-//
-// .page-footer .fonts i {
-//   font-size: 20px;
-//   background: $color-font-dark;
-//   width: 50px;
-//   height: 50px;
-//   line-height: 50px;
-//   color: $color-main;
-//   border-radius: 50%;
-//   transition: $transition;
-// }
-//
-// .page-footer .fonts i:hover {
-//   transform: scale(1.5);
-// }
