@@ -235,7 +235,7 @@ class Booking{
       table: thisBooking.tableNo,
       ppl: thisBooking.peopleAmount.correctValue,
       duration: thisBooking.hoursAmount.correctValue,
-      phone: thisBooking.dom.phone.value,
+      phone: thisBooking.dom.phone.value, //getAttribute('placeholder')
       address: thisBooking.dom.address.value,
       starters: [],
     };
