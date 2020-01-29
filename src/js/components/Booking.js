@@ -116,7 +116,7 @@ class Booking{
       }
 
       thisBooking.booked[date][hourBlock].push(table);
-      console.log(thisBooking.booked[date][hourBlock]);
+      //console.log(thisBooking.booked[date][hourBlock]);
     }
     console.log('method makeBooked was ended');
   }
@@ -176,6 +176,9 @@ class Booking{
     thisBooking.dom.datePicker = thisBooking.dom.wrapper.querySelector(select.widgets.datePicker.wrapper);
     thisBooking.dom.hourPicker = thisBooking.dom.wrapper.querySelector(select.widgets.hourPicker.wrapper);
     thisBooking.dom.tables = thisBooking.dom.wrapper.querySelectorAll(select.booking.tables);
+    thisBooking.dom.starters = thisBooking.dom.wrapper.querySelectorAll(select.booking.starters);
+    thisBooking.dom.phone = thisBooking.dom.wrapper.querySelectorAll(select.booking.phone);
+    thisBooking.dom.address = thisBooking.dom.wrapper.querySelectorAll(select.booking.address);
   }
 
   initWidgets(){
@@ -232,8 +235,18 @@ class Booking{
       table: thisBooking.tableNo,
       ppl: thisBooking.peopleAmount.correctValue,
       duration: thisBooking.hoursAmount.correctValue,
-      //starters: [],
+      phone: thisBooking.dom.phone.value,
+      address: thisBooking.dom.address.value,
+      starters: [],
     };
+
+    for (let starter of thisBooking.dom.starters){
+      if(starter.checked == true){
+        payload.starters.push(starter.value);
+        console.log('payload.starters', payload.starters);
+      }
+    }
+
     console.log('payload', payload);
 
     const options = {
