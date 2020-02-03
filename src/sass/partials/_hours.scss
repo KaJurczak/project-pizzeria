@@ -2,11 +2,33 @@
   background: none;
 }
 
-// [style="width"] {
-//   width: 80px;
-//   background: red;
-// }
+.availability {
+  position: relative;
+  display: flex;
+  z-index: 5;
 
-element.style {
-  width: 20px;
+  div {
+    height: 12px;
+    width: 4.16%;
+
+    &:first-child, {
+      border-radius: 55px 0 0 55px;
+    }
+
+    &:last-child {
+      border-radius: 0 55px 55px 0;
+    }
+  }
+}
+
+.table-availability-empty {
+  background: green;
+}
+
+.table-availability-medium {
+  background: orange;
+}
+
+.table-availability-occupied {
+  background: red;
 }

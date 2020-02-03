@@ -13,9 +13,84 @@ class HourPicker extends BaseWidget{
     thisWidget.dom.input = thisWidget.dom.wrapper.querySelector(select.widgets.hourPicker.input);
     thisWidget.dom.output = thisWidget.dom.wrapper.querySelector(select.widgets.hourPicker.output);
 
+    thisWidget.value = thisWidget.dom.input.value;
+
+    thisWidget.dom.hourAvailability = document.querySelector('.range-slider .availability');
+
+    thisWidget.open = settings.hours.open;
+    thisWidget.close = settings.hours.close;
+
     thisWidget.initPlugin();
 
-    thisWidget.value = thisWidget.dom.input.value;
+  }
+
+  checkBooking(booking){
+    const thisWidget = this;
+    console.log('thisWidget', thisWidget);
+
+
+    thisWidget.events = booking;
+    console.log('booking', booking);
+
+    thisWidget.checkData();
+  }
+
+  checkData(){
+    const thisWidget = this;
+
+    thisWidget.date = document.querySelector('.date-picker .flatpickr-input').value; //nie może być w knstruktorze bo się nie aktualizuje ze zmianą w dataPicker
+    console.log('thisWidget.date', thisWidget.date);
+
+    thisWidget.dayBooking = thisWidget.events[thisWidget.date];
+    console.log('thisWidget.dayBooking', thisWidget.dayBooking);
+
+    thisWidget.tableAvailability();
+  }
+
+  tableAvailability(){
+    const thisWidget = this;
+
+    thisWidget.reservedTable = [];
+
+    for(let i = thisWidget.open; i < thisWidget.close; i += 0.5){
+      console.log('i', i);
+
+      if(thisWidget.dayBooking[i]){
+        console.log('thisWidget.dayBooking[i]', thisWidget.dayBooking[i]);
+        thisWidget.reservedTable.push(thisWidget.dayBooking[i].length);
+        console.log('thisWidget.reservedTable', thisWidget.reservedTable);
+      } else {
+        thisWidget.reservedTable.push(0);
+        console.log('thisWidget.reservedTable', thisWidget.reservedTable);
+      }
+    }
+
+    console.log('thisWidget.reservedTable', thisWidget.reservedTable);
+
+    for(let hour of thisWidget.reservedTable){
+      console.log('hour', hour);
+
+      const rangeSliderDiv = document.createElement('div');
+      console.log('createElement_div:', rangeSliderDiv);
+
+      if(hour === 0){
+        console.log('0');
+        rangeSliderDiv.classList.add('table-availability-empty');
+        console.log('table-availability empty');
+      }
+      else if (hour === 1 || hour === 2) {
+        console.log('1, 2');
+        rangeSliderDiv.classList.add('table-availability-medium');
+        console.log('table-availability medium');
+      }
+      else {
+        console.log('3');
+        rangeSliderDiv.classList.add('table-availability-occupied');
+        console.log('table-availability occupied');
+      }
+
+      thisWidget.dom.hourAvailability.appendChild(rangeSliderDiv);
+    }
   }
 
   initPlugin(){

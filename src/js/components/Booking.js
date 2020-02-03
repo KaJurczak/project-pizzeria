@@ -97,6 +97,7 @@ class Booking{
 
     thisBooking.updateDOM();
     console.log('uruchomione updatedDom');
+
   }
 
   makeBooked(date, hour, duration, table){
@@ -159,6 +160,10 @@ class Booking{
       //console.log('thisBooking.booked', thisBooking.booked);
     }
     console.log('method updateDOM was init');
+
+    console.log('thisBooking.booked', thisBooking.booked);
+    thisBooking.hourPicker.checkBooking(thisBooking.booked);
+
   }
 
   render(bookingWidget){
