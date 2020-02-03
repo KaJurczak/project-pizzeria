@@ -21,14 +21,16 @@
   }
 }
 
-.table-availability-empty {
-  background: green;
-}
+.availability {
+  .empty {
+    background: green;
+  }
 
-.table-availability-medium {
-  background: orange;
-}
+  .medium {
+    background: orange;
+  }
 
-.table-availability-occupied {
-  background: red;
+  .occupied {
+    background: red;
+  }
 }

@@ -28,7 +28,11 @@ class HourPicker extends BaseWidget{
     const thisWidget = this;
     console.log('thisWidget', thisWidget);
 
-
+    // let allRangeSliderDiv = document.querySelectorAll('table-availability');
+    // console.log('allRangeSliderDiv', allRangeSliderDiv);
+    // allRangeSliderDiv.remove();
+    // console.log('allRangeSliderDiv', allRangeSliderDiv);
+    //
     thisWidget.events = booking;
     console.log('booking', booking);
 
@@ -70,22 +74,25 @@ class HourPicker extends BaseWidget{
     for(let hour of thisWidget.reservedTable){
       console.log('hour', hour);
 
-      const rangeSliderDiv = document.createElement('div');
+      let rangeSliderDiv = 0;
+
+      rangeSliderDiv = document.createElement('div');
+      rangeSliderDiv.classList.add('table-availability');
       console.log('createElement_div:', rangeSliderDiv);
 
       if(hour === 0){
         console.log('0');
-        rangeSliderDiv.classList.add('table-availability-empty');
+        rangeSliderDiv.classList.add('empty');
         console.log('table-availability empty');
       }
       else if (hour === 1 || hour === 2) {
         console.log('1, 2');
-        rangeSliderDiv.classList.add('table-availability-medium');
+        rangeSliderDiv.classList.add('medium');
         console.log('table-availability medium');
       }
       else {
         console.log('3');
-        rangeSliderDiv.classList.add('table-availability-occupied');
+        rangeSliderDiv.classList.add('occupied');
         console.log('table-availability occupied');
       }
 
