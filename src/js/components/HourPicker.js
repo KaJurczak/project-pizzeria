@@ -19,11 +19,45 @@ class HourPicker extends BaseWidget{
 
     thisWidget.open = settings.hours.open;
     thisWidget.close = settings.hours.close;
+    thisWidget.events = {}; // add 20200213
 
     thisWidget.initPlugin();
 
   }
 
+  // add changes 20200213
+  renderAvailability(date) {
+    const thisWidget = this;
+
+    const events = this.events[date];
+
+    thisWidget.tablesByHour = [];
+
+    for(let i = thisWidget.open; i < thisWidget.close; i += 0.5){
+
+      if(events[i]){
+        thisWidget.tablesByHour.push(events[i].length);
+      } else {
+        thisWidget.tablesByHour.push(0);
+      }
+    }
+
+    thisWidget.dom.hourAvailability.innerHTML = '';
+
+    for(let hour of thisWidget.tablesByHour){
+
+      const rangeSliderDiv = document.createElement('div');
+      rangeSliderDiv.classList.add('table-availability');
+
+      if(hour === 0) rangeSliderDiv.classList.add('empty');
+      else if(hour < 3) rangeSliderDiv.classList.add('medium');
+      else rangeSliderDiv.classList.add('occupied');
+
+      thisWidget.dom.hourAvailability.appendChild(rangeSliderDiv);
+    }
+  }
+
+  /* removed 20200213:
   checkBooking(booking){
     const thisWidget = this;
     console.log('thisWidget', thisWidget);
@@ -50,6 +84,7 @@ class HourPicker extends BaseWidget{
 
     thisWidget.tableAvailability();
   }
+    */
 
   tableAvailability(){
     const thisWidget = this;

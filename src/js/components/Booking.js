@@ -97,6 +97,8 @@ class Booking{
 
     thisBooking.updateDOM();
     console.log('uruchomione updatedDom');
+    thisBooking.hourPicker.updateEvents(thisBooking.booked); //add 20200213
+    thisBooking.hourPicker.renderAvailability(thisBooking.datePicker.value); //add 20200213
 
   }
 
@@ -162,7 +164,6 @@ class Booking{
     console.log('method updateDOM was init');
 
     console.log('thisBooking.booked', thisBooking.booked);
-    thisBooking.hourPicker.checkBooking(thisBooking.booked);
 
   }
 
@@ -199,6 +200,7 @@ class Booking{
 
     thisBooking.dom.wrapper.addEventListener('updated', function(){
       thisBooking.updateDOM();
+      thisBooking.hourPicker.renderAvailability(thisBooking.datePicker.value); //add 20200213
       console.log('updatedDom zostało uruchomione przez listener');
     });
 
