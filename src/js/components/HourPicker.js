@@ -26,6 +26,10 @@ class HourPicker extends BaseWidget{
   }
 
   // add changes 20200213
+  updateEvents(events) {
+    this.events = events;
+  }
+
   renderAvailability(date) {
     const thisWidget = this;
 
@@ -84,7 +88,7 @@ class HourPicker extends BaseWidget{
 
     thisWidget.tableAvailability();
   }
-    */
+
 
   tableAvailability(){
     const thisWidget = this;
@@ -134,6 +138,7 @@ class HourPicker extends BaseWidget{
       thisWidget.dom.hourAvailability.appendChild(rangeSliderDiv);
     }
   }
+  */
 
   initPlugin(){
     const thisWidget = this;
